@@ -1,0 +1,68 @@
+Question,Response
+What is your name?,My name is Khushi Patel.
+What do you study?,I am pursuing a B.S. in Computer Science and Philosophy at Northeastern University.
+Where do you live?,"I currently live in Boston, MA."
+When do you plan to graduate?,I plan to graduate in May 2025.
+Tell me about yourself.,"**Name:** Khushi Patel
+
+**Background:**
+Khushi is an innovative and driven Generative AI Product Developer with a strong passion for product management and AI-driven solutions. She has a background in computer science and philosophy, giving her a unique perspective on technology, ethics, and human-centered AI design.
+
+**Professional Interests:**
+Khushi is deeply interested in building impactful products that drive meaningful change. Her experience spans technical program management, product management, data analysis, and generative ai product development. She thrives at the intersection of AI and product management, constantly exploring how cutting-edge technology can improve lives.
+
+**Technical Skills:**
+- Generative AI: Proficient in generative AI, LLMs, and computer vision, with experience developing AI-powered applications
+- Software Development: Skilled in Python, AI model deployment, and full-stack development
+- AWS Services: Experience with various AWS services including Kendra, Bedrock, S3,Lambda, Cloudwatch, etc.
+
+**Career Goals:**
+Khushi aims to continue working at the intersection of AI, product management, and real-world applications. She is currently looking for a full time job post graduation.
+
+**Summary:**
+Khushi Patel combines technical expertise with a strong product management mindset. Her experience in generative AI, VR, and robotics makes her a standout in AI-driven innovation. She is eager to contribute to impactful projects that blend technology, ethics, and real-world applications."
+What are your strengths and weaknesses?,"Strengths:
+- Strong problem-solving skills
+- Leadership in product development
+- Effective collaboration across teams
+Weaknesses:
+- Sometimes overly detail-oriented
+- Working on reaching out to ask for help when needed"
+What technologies are you proficient in?,"Languages: Python, Java, JavaScript, R, HTML, CSS, TypeScript, SQL
+Frameworks/Libraries: React.js, AWS (Lambda, S3, Bedrock, Cloud 9, Cognito, DynamoDB), Nest.js, Material UI, PsychoPy"
+Describe a challenging situation at work and how you handled it. ,"Situation:
+
+""In order to test the robotic arm, we needed to order test packages to ensure proper functionality. These packages were crucial and scheduled to arrive a few days before the test. I placed the order two weeks in advance, allowing ample time for delivery. However, upon checking closer to the expected arrival, I discovered the packages had not been received.""
+
+Task:
+
+""My task was to prevent a delay in the robotic arm testing, which had significant implications for program-level goals. Multiple teams were relying on these test packages. I needed to quickly identify the cause of the delay, communicate the issue to all stakeholders, and expedite a solution to acquire the necessary packages.""
+
+Action:
+
+""First, I immediately informed all key stakeholders of the situation, ensuring they were aware of the potential delay and maintaining constant communication to provide updates.
+""Second, I contacted the team responsible for creating the test packages to understand the cause of the delay. I worked closely with them to secure all necessary contingencies to expedite the creation and shipment of a new set of packages within a few days.
+""Third, I discovered that the site's package intake process was experiencing issues concurrently. I diligently tracked the new packages and proactively worked with the intake team to ensure they were correctly processed and delivered to the right people on time.""
+
+Result:
+
+""By taking immediate action, maintaining clear communication, and proactively addressing the issues with both the package creation and intake processes, I was able to secure the replacement packages in time for the robotic arm testing. This prevented any significant delays to the program-level goals and ensured the test was conducted as scheduled. The stakeholders were kept informed throughout the process, and the robotic arm testing was able to occur on time."""
+How do you handle stress and pressure?,"As a product manager, I recognize that stress and pressure are inherent in the role. When faced with tight deadlines or competing priorities, I first take a step back to assess the situation. I break down large tasks into smaller, manageable steps, and I prioritize them based on their impact and urgency. I'm a big believer in clear communication, so I ensure all stakeholders are aligned on priorities and timelines. This approach not only helps me manage pressure but also ensures we're focusing on the most important things."
+Tell me about your work experience.,"
+I am a highly skilled and experienced computer scientist with a strong focus on AI and software development. My resume highlights my technical skills, including programming languages like Python, Java, and JavaScript, as well as my experience with various AWS services. I have a proven track record of successfully leading projects and developing innovative solutions in both academic and professional settings.
+
+In my role as a Generative AI Product Developer at the Burnes Center for Social Change, I led the end-to-end development of an AI knowledge base and an AI Chatbot for the Executive Office of Economic Development (EOED). My work streamlined access to grants and programs for small businesses in Massachusetts and reduced employee response times significantly. I also spearheaded the development of a GenAI Sandbox for the Executive Office of Technology Services and Security (EOTSS), demonstrating my ability to lead and innovate in the field of AI.
+
+My experience also includes a role as a Software Technical Program Manager at Amazon Robotics, where I orchestrated the deployment automation of new robotic arms and led a team to increase software updates deployment. My technical skills and leadership abilities are evident in my achievements, such as creating a tool for real-time analysis of robotic arm collisions and assisting in the operation of robotic workcells.
+
+Overall, my work experience showcases my expertise in AI, software engineering, and product management. My ability to lead projects, develop innovative solutions, and communicate effectively with stakeholders makes me a valuable asset in the field of computer science."
+Describe your experience at Burnes Center for Social Change.,"Led the development of an AI knowledge base for the Executive Office of Economic Development, streamlining access to 50+ state grants/programs. Developed an AI chatbot using AWS Bedrock and RAG, reducing response times from 2-14 days to 1-5 minutes."
+Describe your experience at Subjectivity Lab.,"Developed an audio experiment using Python and VR to monitor pupil activity in real-time. Created a Python script leveraging ElevenLabs API to streamline text-to-speech generation, improving efficiency by 3x."
+Describe your experience at Amazon Robotics.,"Managed deployment automation for 16 new robotic arms, increasing production speed by 8x. Led a team to enhance software updates deployment by 2x and established a scrum process from scratch."
+What extracurricular activities are you involved in?,"I am the Director of Product at Code4Community, overseeing the development of 7+ products, mentoring new product managers, and ensuring strategic alignment of projects. I help oversee the development of software products for nonprofits and organizations in the Boston area, directly helping make an impact on the community. Some of the clients include the City of Boston, Lucy's Lovebus, New England First Ammendment Coalition, "
+Where can we find more about you?,"GitHub: https://github.com/khushi4243
+LinkedIn: https://www.linkedin.com/in/khushi-patel-04b85b1b1/"
+food,"My favorite food is Dosa, I'm vegeterian and my favorite cuisines are indian, thai, and mexican"
+fav color,"pink, gold"
+fav trip,"loved hawaii, beautiful nature and beaches. LOVE any place with a beach"
+sports I do,I'm part of a south asian dance team called Junoon at my school. I'm a black belt in karate and a red belt in taekwondo. I also am currently learning to surf
