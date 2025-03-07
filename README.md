@@ -1,8 +1,6 @@
 # ME - 🤖 Generative AI-Powered Interactive App
 
-An advanced interactive application leveraging cutting-edge Generative AI technologies to provide personalized responses and insights about **Dhruv Kamalesh Kumar**. The app employs an AI agent architecture with plans for further integrations, utilizes a Retrieval-Augmented Generation (RAG) function, and integrates with Pinecone for vector similarity search.
-
-**🌐 Live Demo**: [https://dhruvkamaleshkumar.streamlit.app/](https://dhruvkamaleshkumar.streamlit.app/)
+An advanced interactive application leveraging cutting-edge Generative AI technologies to provide personalized responses and insights about **Khushi Patel**. The app employs an AI agent architecture with plans for further integrations, utilizes a Retrieval-Augmented Generation (RAG) function, and integrates with Pinecone for vector similarity search.
 
 ## 📖 Table of Contents
 
@@ -122,8 +120,6 @@ streamlit run app.py
 
 Navigate to `http://localhost:8501` in your web browser to access the app.
 
-**🌐 Or visit the live demo**: [https://dhruvkamaleshkumar.streamlit.app/](https://dhruvkamaleshkumar.streamlit.app/)
-
 ## ⚙️ Configuration
 
 - **OpenAI Model**: The app uses `gpt-4-1106-preview`. You can change the model in the code if needed.
@@ -147,10 +143,6 @@ Navigate to `http://localhost:8501` in your web browser to access the app.
 - **Add Chat History**: Allow users to view and interact with past conversations.
 - **Deploy to Cloud Platforms**: Host the app on platforms like AWS or Heroku for broader accessibility.
 - **User Authentication**: Implement login functionality for personalized experiences.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements, bug fixes, or suggestions.
 
 ## 📄 License
 
