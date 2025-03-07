@@ -147,9 +147,4 @@ Navigate to `http://localhost:8501` in your web browser to access the app.
 ## 📄 License
 
 This project is licensed under the MIT License.
-
-## 📬 Contact
-
-- **Email**: [dhruvbaradiya@gmail.com](mailto:dhruvbaradiya@gmail.com)
-- **LinkedIn**: [linkedin.com/in/dhruvkamaleshkumar](https://www.linkedin.com/in/dhruvkamaleshkumar/)
-- **GitHub**: [github.com/DB-25](https://github.com/DB-25)
+Inspired by ME chatbot by Dhruv Kamalesh Kumar
