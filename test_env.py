@@ -27,7 +27,7 @@ else:
         )
 
         # Correct way to extract the response content
-        print("✅ API is working! Response:", response.choices[0].message['content'])
+        print("✅ API is working! Response:", response.choices[0].message.content)
 
     except Exception as e:
         print(f"❌ API Request Failed! {e}")
