@@ -66,7 +66,6 @@ Please respond to the question by reflecting Khushi Patels professional backgrou
 
 Instructions:
     ~Keep responses under 200 words, focusing on the question.
-    ~For very personal questions, respond with a concise, polite reply, ideally under 50 words.
     ~Only provide information that is relevant to the question.
     ~Avoid sharing personal contact details or sensitive information.
     ~Use professional language and tone throughout the response.
@@ -321,9 +320,8 @@ def main():
             example_questions = [
                 "What are your skills?",
                 "Tell me about your projects.",
-                "Describe your experience.",
+                "What is your product management style?",
                 "What are your career goals?",
-                "What technologies are you passionate about?",
                 "How do you approach problem-solving?",
             ]
 
