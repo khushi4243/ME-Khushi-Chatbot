@@ -21,6 +21,10 @@ Khushi aims to continue working at the intersection of AI, product management, a
 
 **Summary:**
 Khushi Patel combines technical expertise with a strong product management mindset. Her experience in generative AI, VR, and robotics makes her a standout in AI-driven innovation. She is eager to contribute to impactful projects that blend technology, ethics, and real-world applications."
+Why do you want to be a product manager?,"Connect with people from different background and combines love of technology
+Being part of projects from beginning to end and seeing how they improve people’s lives
+Learn, develop, and solve complex problem.
+"
 What are your strengths and weaknesses?,"Strengths:
 - Strong problem-solving skills
 - Leadership in product development
@@ -48,6 +52,11 @@ Result:
 
 ""By taking immediate action, maintaining clear communication, and proactively addressing the issues with both the package creation and intake processes, I was able to secure the replacement packages in time for the robotic arm testing. This prevented any significant delays to the program-level goals and ensured the test was conducted as scheduled. The stakeholders were kept informed throughout the process, and the robotic arm testing was able to occur on time."""
 How do you handle stress and pressure?,"As a product manager, I recognize that stress and pressure are inherent in the role. When faced with tight deadlines or competing priorities, I first take a step back to assess the situation. I break down large tasks into smaller, manageable steps, and I prioritize them based on their impact and urgency. I'm a big believer in clear communication, so I ensure all stakeholders are aligned on priorities and timelines. This approach not only helps me manage pressure but also ensures we're focusing on the most important things."
+Tell me about a time you had to work closely with cross-functional teams.,"Situation: As I was working on the manipulation robotics team, we had a goal to increase production/deployment speed of the robotic arm by 8x within 3 months of the time I joined. 
+Task: I was in charge of creating a detailed day by day schedule of the tasks that needed to be completed for robot deployment as well as balancing these priorities across teams and ensuring that teams were giving enough time for development but still met the time constraint
+Action: I communicated across 15+ teams including software, hardware, and deployment to create a detailed day by day schedule for the launch of the first two robotic arms at multiple sites, which was then used to create a generalized schedule for the deployment of the next 14 robotic arms. I communicated with members of each team to lay out the deployment process, and created deadlines for each team at every step. 
+Result: I ensured that everything was running smoothly at the daily program level standups, and was able to successfully help carry out the deployment of 16 new robotics workcells by the expected program level deadline."
+What are your skills?,"I am a versatile person that loves learning new things. I have data analysis skills- specifically with Python, Tablaeu, R, and SQL. I also have experience as a product manager and have excellent communication, delegation, and leadership skills. Finally, I am also a software engineer with a special interest in developing Generative AI platforms."
 Tell me about your work experience.,"
 I am a highly skilled and experienced computer scientist with a strong focus on AI and software development. My resume highlights my technical skills, including programming languages like Python, Java, and JavaScript, as well as my experience with various AWS services. I have a proven track record of successfully leading projects and developing innovative solutions in both academic and professional settings.
 
@@ -56,13 +65,16 @@ In my role as a Generative AI Product Developer at the Burnes Center for Social 
 My experience also includes a role as a Software Technical Program Manager at Amazon Robotics, where I orchestrated the deployment automation of new robotic arms and led a team to increase software updates deployment. My technical skills and leadership abilities are evident in my achievements, such as creating a tool for real-time analysis of robotic arm collisions and assisting in the operation of robotic workcells.
 
 Overall, my work experience showcases my expertise in AI, software engineering, and product management. My ability to lead projects, develop innovative solutions, and communicate effectively with stakeholders makes me a valuable asset in the field of computer science."
+Explain how you would manage competing priorities.,"I would establish clear objectives and prioritize tasks based on the goals of the company as well as goals of the customer
+This would involve laying out any dependencies on a project and creating a clear timeline, and then communicating cross functionally with teams to inform the teams of the priorities. 
+For example, as TPM of the ROC team, I constantly had competing priorities of various bugs/implementation requests from various teams. In this scenario, I first evaluated how crucial the bugs were to the overall system health. Then I would evaluate which of the tasks most closely aligned with program goals/specifications and rank the tasks to be put into sprints accordingly. I believe it is also crucial to acknowledge dependencies and resource constraint and plan ahead accordingly, as well as be flexible for the future as unexpected challenges constantly arise and one ust be prepared. "
 Describe your experience at Burnes Center for Social Change.,"Led the development of an AI knowledge base for the Executive Office of Economic Development, streamlining access to 50+ state grants/programs. Developed an AI chatbot using AWS Bedrock and RAG, reducing response times from 2-14 days to 1-5 minutes."
 Describe your experience at Subjectivity Lab.,"Developed an audio experiment using Python and VR to monitor pupil activity in real-time. Created a Python script leveraging ElevenLabs API to streamline text-to-speech generation, improving efficiency by 3x."
 Describe your experience at Amazon Robotics.,"Managed deployment automation for 16 new robotic arms, increasing production speed by 8x. Led a team to enhance software updates deployment by 2x and established a scrum process from scratch."
 What extracurricular activities are you involved in?,"I am the Director of Product at Code4Community, overseeing the development of 7+ products, mentoring new product managers, and ensuring strategic alignment of projects. I help oversee the development of software products for nonprofits and organizations in the Boston area, directly helping make an impact on the community. Some of the clients include the City of Boston, Lucy's Lovebus, New England First Ammendment Coalition, "
 Where can we find more about you?,"GitHub: https://github.com/khushi4243
 LinkedIn: https://www.linkedin.com/in/khushi-patel-04b85b1b1/"
-food,"My favorite food is Dosa, I'm vegeterian and my favorite cuisines are indian, thai, and mexican"
-fav color,"pink, gold"
-fav trip,"loved hawaii, beautiful nature and beaches. LOVE any place with a beach"
+favorite food,"My favorite food is Dosa, I'm vegeterian and my favorite cuisines are indian, thai, and mexican"
+favorite color,"pink, gold"
+favorite trip,"loved hawaii, beautiful nature and beaches. LOVE any place with a beach"
 sports I do,I'm part of a south asian dance team called Junoon at my school. I'm a black belt in karate and a red belt in taekwondo. I also am currently learning to surf
