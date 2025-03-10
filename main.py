@@ -28,7 +28,10 @@ index = pc.Index(index_name)
 # Load documents
 loader = CSVLoader(file_path="ME.csv")
 documents = loader.load()
-embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+try:
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+except Exception as e:
+    print("Error initializing OpenAIEmbeddings:", e)
 
 def load_to_pinecone():
     existing_ids = {match.id for match in index.query(vector=[0] * 3072, top_k=1).matches}
@@ -53,13 +56,17 @@ def pinecone_retrieval_tool(input_text: str) -> str:
     relevant_data = retrieve_info(input_text)
     return "\n".join(relevant_data)
 
-llm = ChatOpenAI(temperature=0, model="gpt-4-1106-preview")
+try:
+    llm = ChatOpenAI(temperature=0, model="gpt-4")
+except Exception as e:
+    print("Error initializing ChatOpenAI:", e)
+
 tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
 agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
 
 def generate_response(question):
     combined_input = f"""
-Please respond to the question by reflecting Khushi Patel’s professional background and experience. Maintain a polite and professional tone in the response.
+Please respond to the question by reflecting Khushi Patels professional background and experience. Maintain a polite and professional tone in the response.
 
 Instructions:
     ~Keep responses under 200 words, focusing on the question.
@@ -237,7 +244,7 @@ def main():
             transition: background-color 0.3s, transform 0.2s;
         }
         .suggested-questions button:hover {
-            background-color: #e0e0e0;
+            background-color: #FF8096;
             transform: scale(1.05);
         }
         </style>
@@ -269,8 +276,8 @@ def main():
                 <div class="bio">
                     I am a passionate Generative AI Product Developer with a love for product management and innovation. With a background in computer science and philosophy, I enjoy
                         working on projects that make an impact- whether it's through developing generative AI platforms for state agencies, designing VR experiments for
-                        psychology research, or enhancing the efficiency of robotic arms. Beyond tech, I’m an avid traveler, dancer, and martial arts enthusiast. 
-                        I’m always eager to learn—whether it’s new languages, sports, or cultures—and I embrace every challenge as an opportunity to grow!
+                        psychology research, or enhancing the efficiency of robotic arms. Beyond tech, I'm an avid traveler, dancer, and martial arts enthusiast. 
+                        I'm always eager to learn—whether it's new languages, sports, or cultures—and I embrace every challenge as an opportunity to grow!
                 </div>
             """, unsafe_allow_html=True)
 
@@ -333,7 +340,7 @@ def main():
 
             # Question Input
             message = st.text_input(
-                "Hi, I’m Khushi! Feel free to ask me any questions you have:",
+                "Hi, I'm Khushi! Feel free to ask me any questions you have:",
                 value=st.session_state.selected_question,
             )
 
