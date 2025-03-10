@@ -133,10 +133,17 @@ def main():
         <style>
         /* General Styles */
         body {
-            background-color: #f5f5f5;
+            background-color: #ffffff;  /* White background for the entire app */
+            color: #333333;  /* Dark text for contrast */
         }
 
         /* Home Tab Styles */
+        .home-tab {
+            background-color: #ffeef8;  /* Light pink background for Home tab */
+            padding: 20px;  /* Add padding for better spacing */
+            border-radius: 10px;  /* Rounded corners */
+        }
+
         .greeting {
             font-size: 2.5em;
             font-weight: bold;
@@ -153,7 +160,7 @@ def main():
 
         .roles {
             font-size: 1.1em;
-            color: var(--text-color);
+            color: var(--text-color);  /* Pink color */
             margin-top: 15px;
             font-style: italic;
         }
@@ -165,7 +172,7 @@ def main():
 
         /* Download Resume Button Styles */
         .download-button {
-            background-color: #6f42c1;
+            background-color: #ff69b4;  /* Pink background */
             color: white;
             padding: 10px 20px;
             border: none;
@@ -176,27 +183,28 @@ def main():
             margin-top: 20px;
         }
         .download-button:hover {
-            background-color: #5a32a3;
+            background-color: #ff1493;  /* Darker pink on hover */
             transform: scale(1.05);
         }
 
         /* Project Card Styles */
         .project-card {
-            border: 1px solid #e1e4e8;
+            border: 1px solid #ff69b4;  /* Pink border */
             padding: 20px;
             border-radius: 10px;
             transition: box-shadow 0.3s, transform 0.3s;
-            background-color: #ffffff;
-            color: #333333; /* Ensure text is visible */
+            background-color: #ffffff;  /* White background for cards */
+            color: #333333;  /* Dark text */
+            margin-bottom: 20px;  /* Space between cards */
         }
         .project-card:hover {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.5);  /* Pink shadow */
             transform: translateY(-5px);
         }
         .project-title {
             font-size: 1.5em;
             margin-bottom: 10px;
-            color: #0366d6; /* Distinct color for titles */
+            color: #ff69b4;  /* Pink color for titles */
         }
         .project-title a {
             color: inherit;
@@ -214,13 +222,13 @@ def main():
             border-radius: 5px;
         }
         .language-badge {
-            background-color: #0366d6;
+            background-color: #ff69b4;  /* Pink badge */
         }
         .topic-badge {
-            background-color: #6f42c1;
+            background-color: #ff1493;  /* Darker pink badge */
         }
         .project-card p {
-            color: #555555;
+            color: #555555;  /* Dark gray for text */
         }
 
         /* Suggested Questions and Chat Interface Styles */
@@ -228,7 +236,7 @@ def main():
             margin-top: 40px;
         }
         .suggested-questions button {
-            background-color: #f0f0f0;
+            background-color: #ff69b4;  /* Pink button */
             color: #333333;
             padding: 8px 15px;
             border: none;
@@ -239,7 +247,7 @@ def main():
             transition: background-color 0.3s, transform 0.2s;
         }
         .suggested-questions button:hover {
-            background-color: #FF8096;
+            background-color: #ff1493;  /* Darker pink on hover */
             transform: scale(1.05);
         }
         </style>
