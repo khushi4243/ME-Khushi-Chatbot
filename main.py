@@ -4,6 +4,7 @@ import requests
 from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain_community.embeddings.openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings
 from dotenv import load_dotenv
 import openai
 import os
@@ -28,10 +29,8 @@ index = pc.Index(index_name)
 # Load documents
 loader = CSVLoader(file_path="ME.csv")
 documents = loader.load()
-try:
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-except Exception as e:
-    print("Error initializing OpenAIEmbeddings:", e)
+embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+
 
 def load_to_pinecone():
     existing_ids = {match.id for match in index.query(vector=[0] * 3072, top_k=1).matches}
@@ -56,11 +55,8 @@ def pinecone_retrieval_tool(input_text: str) -> str:
     relevant_data = retrieve_info(input_text)
     return "\n".join(relevant_data)
 
-try:
-    llm = ChatOpenAI(temperature=0, model="gpt-4")
-except Exception as e:
-    print("Error initializing ChatOpenAI:", e)
 
+llm = ChatOpenAI(temperature=0, model="gpt-4")
 tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
 agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
 
