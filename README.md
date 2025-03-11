@@ -30,6 +30,9 @@ An advanced interactive application leveraging cutting-edge Generative AI techno
 
 The application's architecture is designed around an AI agent that orchestrates various components to provide intelligent and context-aware responses.
 
+## Live Demo
+https://khushi4243-me-main-xb4oto.streamlit.app/ 
+
 ### Components:
 
 1. **User Interface (Streamlit)**: Provides an interactive and user-friendly interface for users to engage with the app.
