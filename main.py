@@ -432,107 +432,107 @@ def main():
     # --------------------- #
     #      Projects Tab     #
     # --------------------- #
-    with tabs[1]:
-        st.header("Projects")
+    # with tabs[1]:
+    #     st.header("Projects")
 
-        # Fetch GitHub repositories
-        github_username = "khushi4243"  
-        github_token = os.getenv("GITHUB_TOKEN")  # Optional: GitHub Personal Access Token for higher rate limits
-        repos = fetch_github_repos(github_username, token=github_token)
+    #     # Fetch GitHub repositories
+    #     github_username = "khushi4243"  
+    #     github_token = os.getenv("GITHUB_TOKEN")  # Optional: GitHub Personal Access Token for higher rate limits
+    #     repos = fetch_github_repos(github_username, token=github_token)
 
-        if repos:
-            # Pagination parameters
-            PAGE_SIZE = 6  # Number of projects per page
-            total_repos = len(repos)
-            total_pages = (total_repos + PAGE_SIZE - 1) // PAGE_SIZE  # Ceiling division
+    #     if repos:
+    #         # Pagination parameters
+    #         PAGE_SIZE = 6  # Number of projects per page
+    #         total_repos = len(repos)
+    #         total_pages = (total_repos + PAGE_SIZE - 1) // PAGE_SIZE  # Ceiling division
 
-            # Initialize pagination state
-            init_pagination(total_pages)
+    #         # Initialize pagination state
+    #         init_pagination(total_pages)
 
-            # Ensure current_page is within bounds
-            st.session_state.current_page = max(1, min(st.session_state.current_page, st.session_state.total_pages))
+    #         # Ensure current_page is within bounds
+    #         st.session_state.current_page = max(1, min(st.session_state.current_page, st.session_state.total_pages))
 
-            # Calculate start and end indices
-            start_idx = (st.session_state.current_page - 1) * PAGE_SIZE
-            end_idx = start_idx + PAGE_SIZE
-            current_repos = repos[start_idx:end_idx]
+    #         # Calculate start and end indices
+    #         start_idx = (st.session_state.current_page - 1) * PAGE_SIZE
+    #         end_idx = start_idx + PAGE_SIZE
+    #         current_repos = repos[start_idx:end_idx]
 
-            # Display current page projects
-            num_cols = 3  # Number of columns per row
-            repo_chunks = [current_repos[i:i + num_cols] for i in range(0, len(current_repos), num_cols)]
+    #         # Display current page projects
+    #         num_cols = 3  # Number of columns per row
+    #         repo_chunks = [current_repos[i:i + num_cols] for i in range(0, len(current_repos), num_cols)]
 
-            for chunk in repo_chunks:
-                cols = st.columns(len(chunk))
-                for i, repo in enumerate(chunk):
-                    with cols[i]:
-                        # Prepare language badge
-                        language = repo.get('language', 'N/A')
-                        language_badge = f'<span class="badge language-badge">{language}</span>' if language else ''
+    #         for chunk in repo_chunks:
+    #             cols = st.columns(len(chunk))
+    #             for i, repo in enumerate(chunk):
+    #                 with cols[i]:
+    #                     # Prepare language badge
+    #                     language = repo.get('language', 'N/A')
+    #                     language_badge = f'<span class="badge language-badge">{language}</span>' if language else ''
 
-                        # Prepare topic badges
-                        topics = repo.get('topics', [])
-                        if not topics:
-                            # Fetch topics if not already present
-                            topics_url = repo.get('url') + '/topics'
-                            headers = {
-                                'Accept': 'application/vnd.github.mercy-preview+json',
-                            }
-                            if github_token:
-                                headers['Authorization'] = f'token {github_token}'
-                            topics_response = requests.get(topics_url, headers=headers)
-                            if topics_response.status_code == 200:
-                                topics = topics_response.json().get('names', [])
-                            else:
-                                topics = []
+    #                     # Prepare topic badges
+    #                     topics = repo.get('topics', [])
+    #                     if not topics:
+    #                         # Fetch topics if not already present
+    #                         topics_url = repo.get('url') + '/topics'
+    #                         headers = {
+    #                             'Accept': 'application/vnd.github.mercy-preview+json',
+    #                         }
+    #                         if github_token:
+    #                             headers['Authorization'] = f'token {github_token}'
+    #                         topics_response = requests.get(topics_url, headers=headers)
+    #                         if topics_response.status_code == 200:
+    #                             topics = topics_response.json().get('names', [])
+    #                         else:
+    #                             topics = []
 
-                        topic_badges = ' '.join([f'<span class="badge topic-badge">{topic}</span>' for topic in topics])
+    #                     topic_badges = ' '.join([f'<span class="badge topic-badge">{topic}</span>' for topic in topics])
 
-                        # Display project card
-                        st.markdown(
-                            f"""
-                            <div class="project-card">
-                                <div class="project-title"><a href="{repo['html_url']}" target="_blank">{repo['name']}</a></div>
-                                <p>{repo.get('description', 'No description provided.')}</p>
-                                <div>{language_badge}</div>
-                                <div>{topic_badges}</div>
-                            </div>
-                            """,
-                            unsafe_allow_html=True,
-                        )
+    #                     # Display project card
+    #                     st.markdown(
+    #                         f"""
+    #                         <div class="project-card">
+    #                             <div class="project-title"><a href="{repo['html_url']}" target="_blank">{repo['name']}</a></div>
+    #                             <p>{repo.get('description', 'No description provided.')}</p>
+    #                             <div>{language_badge}</div>
+    #                             <div>{topic_badges}</div>
+    #                         </div>
+    #                         """,
+    #                         unsafe_allow_html=True,
+    #                     )
 
-                        # Display stars and forks if they are greater than zero
-                        stars = repo.get('stargazers_count', 0)
-                        forks = repo.get('forks_count', 0)
-                        stats = []
-                        if stars > 0:
-                            stats.append(f"**⭐ Stars:** {stars}")
-                        if forks > 0:
-                            stats.append(f"**🍴 Forks:** {forks}")
-                        if stats:
-                            st.write(" | ".join(stats))
+    #                     # Display stars and forks if they are greater than zero
+    #                     stars = repo.get('stargazers_count', 0)
+    #                     forks = repo.get('forks_count', 0)
+    #                     stats = []
+    #                     if stars > 0:
+    #                         stats.append(f"**⭐ Stars:** {stars}")
+    #                     if forks > 0:
+    #                         stats.append(f"**🍴 Forks:** {forks}")
+    #                     if stats:
+    #                         st.write(" | ".join(stats))
 
-            # Pagination controls
-            st.markdown("---")
-            pagination_cols = st.columns(3)
-            with pagination_cols[0]:
-                if st.session_state.current_page > 1:
-                    if st.button("⏮️ Previous"):
-                        st.session_state.current_page -= 1
-                        st.experimental_rerun()
-            with pagination_cols[1]:
-                st.write(f"Page {st.session_state.current_page} of {st.session_state.total_pages}")
-            with pagination_cols[2]:
-                if st.session_state.current_page < st.session_state.total_pages:
-                    if st.button("Next ⏭️"):
-                        st.session_state.current_page += 1
-                        st.experimental_rerun()
-        else:
-            st.write("No repositories found or an error occurred.")
+    #         # Pagination controls
+    #         st.markdown("---")
+    #         pagination_cols = st.columns(3)
+    #         with pagination_cols[0]:
+    #             if st.session_state.current_page > 1:
+    #                 if st.button("⏮️ Previous"):
+    #                     st.session_state.current_page -= 1
+    #                     st.experimental_rerun()
+    #         with pagination_cols[1]:
+    #             st.write(f"Page {st.session_state.current_page} of {st.session_state.total_pages}")
+    #         with pagination_cols[2]:
+    #             if st.session_state.current_page < st.session_state.total_pages:
+    #                 if st.button("Next ⏭️"):
+    #                     st.session_state.current_page += 1
+    #                     st.experimental_rerun()
+    #     else:
+    #         st.write("No repositories found or an error occurred.")
 
     # --------------------- #
     #      Contact Tab      #
     # --------------------- #
-    with tabs[2]:
+    with tabs[1]:
         st.header("Contact Me")
         st.write("Feel free to reach out through any of the following methods:")
         st.write("- **Email:** [khushi108@icloud.com](mailto:khushi108@icloud.com)")
