@@ -253,7 +253,7 @@ def main():
         </style>
     """, unsafe_allow_html=True)
 
-    tabs = st.tabs(["Home", "Projects", "Contact"])
+    tabs = st.tabs(["Home", "Contact"])
 
     # --------------------- #
     #        Home Tab       #
