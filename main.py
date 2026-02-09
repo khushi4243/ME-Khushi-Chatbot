@@ -56,7 +56,7 @@ def pinecone_retrieval_tool(input_text: str) -> str:
     return "\n".join(relevant_data)
 
 
-llm = ChatOpenAI(temperature=0, model="gpt-4")
+llm = ChatOpenAI(temperature=0, model="gpt-5")
 tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
 agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
 
@@ -66,8 +66,7 @@ Please respond to the question by reflecting Khushi Patels professional backgrou
 
 Instructions:
     ~Keep responses under 200 words, focusing on the question.
-    ~Only provide information that is relevant to the question.
-    ~Avoid sharing personal contact details or sensitive information.
+    ~ try to be as detailed as possible, and provide as much information as possible.
     ~Use professional language and tone throughout the response.
     ~Answer directly and concisely.
     ~Use pronouns like "I" or "me".
@@ -363,8 +362,8 @@ def main():
                     'date': 'Bachelor of Computer Science and Philosophy',
                     'emoji': '🎓',
                     'title': 'Bachelor of Computer Science and Philosophy',
-                    'institution': 'Northeastern University (Graduating May 2025)',
-                    'description': 'Graduating with a strong foundation in computer science principles and AI Ethics',
+                    'institution': 'Northeastern University',
+                    'description': 'Graduated with a strong foundation in computer science principles and AI Ethics',
                     'images': []  # Add images if available
                 },
                 {
