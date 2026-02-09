@@ -13,7 +13,7 @@ load_dotenv()
 
 # Initialize Pinecone
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-index_name = "me"
+index_name = "me-gemini"
 spec = ServerlessSpec(cloud="aws", region=os.getenv("PINECONE_ENVIRONMENT"))
 
 # Check if index exists, create if necessary
