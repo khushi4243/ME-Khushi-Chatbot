@@ -26,8 +26,7 @@ index = pc.Index(index_name)
 loader = CSVLoader(file_path="ME.csv")
 documents = loader.load()
 embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/embedding-001",
-    task_type="retrieval_document",
+    model="text-embedding-004",
     google_api_key=os.getenv("GEMINI_API_KEY")
 )
 
