@@ -2,19 +2,14 @@ import streamlit as st
 import base64
 import requests
 from langchain_community.document_loaders.csv_loader import CSVLoader
-from langchain_community.embeddings.openai import OpenAIEmbeddings
-from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from dotenv import load_dotenv
-import openai
 import os
 from pinecone import Pinecone, ServerlessSpec
 from langchain.agents import initialize_agent, AgentType, Tool
 
 # Load environment variables
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize Pinecone
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
@@ -23,18 +18,21 @@ spec = ServerlessSpec(cloud="aws", region=os.getenv("PINECONE_ENVIRONMENT"))
 
 # Check if index exists, create if necessary
 if index_name not in pc.list_indexes().names():
-    pc.create_index(name=index_name, dimension=3072, spec=spec)
+    pc.create_index(name=index_name, dimension=768, spec=spec)
 
 index = pc.Index(index_name)
 
 # Load documents
 loader = CSVLoader(file_path="ME.csv")
 documents = loader.load()
-embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=os.getenv("GEMINI_API_KEY")
+)
 
 
 def load_to_pinecone():
-    existing_ids = {match.id for match in index.query(vector=[0] * 3072, top_k=1).matches}
+    existing_ids = {match.id for match in index.query(vector=[0] * 768, top_k=1).matches}
     if existing_ids:
         print("Data already exists in Pinecone. Skipping upload.")
         return
