@@ -58,9 +58,9 @@ def pinecone_retrieval_tool(input_text: str) -> str:
 
 
 llm = ChatGoogleGenerativeAI(
-    model="gemini-1.5-flash",
+    model="gemini-2.5-flash",
     temperature=0,
-    google_api_key=os.getenv("GOOGLE_API_KEY")
+    google_api_key=os.getenv("GEMINI_API_KEY")
 )
 tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
 agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
