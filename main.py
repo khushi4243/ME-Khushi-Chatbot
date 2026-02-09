@@ -5,6 +5,7 @@ from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain_community.embeddings.openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain_openai import OpenAIEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 import openai
 import os
@@ -56,7 +57,11 @@ def pinecone_retrieval_tool(input_text: str) -> str:
     return "\n".join(relevant_data)
 
 
-llm = ChatOpenAI(temperature=0, model="gpt-5")
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    temperature=0,
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
 agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
 
