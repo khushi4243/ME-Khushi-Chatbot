@@ -276,7 +276,7 @@ def main():
             # Bio
             st.markdown("""
                 <div class="bio">
-                    I am a passionate Generative AI Product Developer with a love for product management and innovation. With a background in computer science and philosophy, I enjoy
+                    I am a passionate AI Software Engineer with a love for product management and innovation. With a background in computer science and philosophy, I enjoy
                         working on projects that make an impact- whether it's through developing generative AI platforms for state agencies, designing VR experiments for
                         psychology research, or enhancing the efficiency of robotic arms. Beyond tech, I'm an avid traveler, dancer, and martial arts enthusiast. 
                         I'm always eager to learn—whether it's new languages, sports, or cultures—and I embrace every challenge as an opportunity to grow!
