@@ -22,81 +22,69 @@ def get_api_key(key_name):
             pass
     return value
 
-# Initialize Pinecone
-pinecone_api_key = get_api_key("PINECONE_API_KEY")
-gemini_api_key = get_api_key("GEMINI_API_KEY")
-pinecone_env = get_api_key("PINECONE_ENVIRONMENT")
-
-if not pinecone_api_key:
-    st.error("PINECONE_API_KEY not found. Please set it in your environment variables or Streamlit secrets.")
-    st.stop()
-if not gemini_api_key:
-    st.error("GEMINI_API_KEY not found. Please set it in your environment variables or Streamlit secrets.")
-    st.stop()
-
-pc = Pinecone(api_key=pinecone_api_key)
-index_name = "me-gemini"
-spec = ServerlessSpec(cloud="aws", region=pinecone_env)
-
-# Check if index exists, create if necessary
-try:
-    if index_name not in pc.list_indexes().names():
-        pc.create_index(name=index_name, dimension=768, spec=spec)
-
-    index = pc.Index(index_name)
-
-    # Load documents
-    loader = CSVLoader(file_path="ME.csv")
-    documents = loader.load()
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/text-embedding-004",
-        google_api_key=gemini_api_key
-    )
-except Exception as e:
-    st.error(f"Error initializing services: {str(e)}")
-    st.stop()
-
-
-def load_to_pinecone():
+# Initialize services with caching
+@st.cache_resource
+def initialize_services():
+    """Initialize Pinecone, embeddings, and LLM"""
     try:
+        # Get API keys
+        pinecone_api_key = get_api_key("PINECONE_API_KEY")
+        gemini_api_key = get_api_key("GEMINI_API_KEY")
+        pinecone_env = get_api_key("PINECONE_ENVIRONMENT")
+        
+        if not pinecone_api_key or not gemini_api_key:
+            return None, None, None, None, "Missing API keys"
+        
+        # Initialize Pinecone
+        pc = Pinecone(api_key=pinecone_api_key)
+        index_name = "me-gemini"
+        spec = ServerlessSpec(cloud="aws", region=pinecone_env)
+        
+        # Check if index exists, create if necessary
+        if index_name not in pc.list_indexes().names():
+            pc.create_index(name=index_name, dimension=768, spec=spec)
+        
+        index = pc.Index(index_name)
+        
+        # Load documents
+        loader = CSVLoader(file_path="ME.csv")
+        documents = loader.load()
+        embeddings = GoogleGenerativeAIEmbeddings(
+            model="text-embedding-004",
+            google_api_key=gemini_api_key
+        )
+        
+        # Load data to Pinecone
         existing_ids = {match.id for match in index.query(vector=[0] * 768, top_k=1).matches}
-        if existing_ids:
-            print("Data already exists in Pinecone. Skipping upload.")
-            return
-
-        docs_content = [doc.page_content for doc in documents]
-        embeddings_list = embeddings.embed_documents(docs_content)
-        for i, embedding in enumerate(embeddings_list):
-            index.upsert([(str(i), embedding, {"content": docs_content[i]})])
+        if not existing_ids:
+            docs_content = [doc.page_content for doc in documents]
+            embeddings_list = embeddings.embed_documents(docs_content)
+            for i, embedding in enumerate(embeddings_list):
+                index.upsert([(str(i), embedding, {"content": docs_content[i]})])
+        
+        # Initialize LLM and agent
+        llm = ChatGoogleGenerativeAI(
+            model="gemini-2.5-flash",
+            temperature=0,
+            google_api_key=gemini_api_key
+        )
+        
+        def retrieve_info(query):
+            query_embedding = embeddings.embed_query(query)
+            result = index.query(vector=query_embedding, top_k=4, include_metadata=True)
+            page_contents_array = [match['metadata']['content'] for match in result['matches']]
+            return page_contents_array
+        
+        tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
+        agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+        
+        return agent, embeddings, index, gemini_api_key, None
+        
     except Exception as e:
-        st.warning(f"Error loading data to Pinecone: {str(e)}")
+        return None, None, None, None, str(e)
 
-load_to_pinecone()
-
-def retrieve_info(query):
-    query_embedding = embeddings.embed_query(query)
-    result = index.query(vector=query_embedding, top_k=4, include_metadata=True)
-    page_contents_array = [match['metadata']['content'] for match in result['matches']]
-    return page_contents_array
-
-def pinecone_retrieval_tool(input_text: str) -> str:
-    relevant_data = retrieve_info(input_text)
-    return "\n".join(relevant_data)
-
-
-try:
-    llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
-        temperature=0,
-        google_api_key=gemini_api_key
-    )
-    tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
-    agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
-except Exception as e:
-    st.error(f"Error initializing AI model: {str(e)}")
-    st.stop()
-
-def generate_response(question):
+def generate_response(agent, question):
+    """Generate response using the agent"""
     try:
         combined_input = f"""
 Please respond to the question by reflecting Khushi Patels professional background and experience. Maintain a polite and professional tone in the response.
@@ -162,6 +150,14 @@ def main():
         layout="wide",
         initial_sidebar_state="collapsed",  # Collapse sidebar since we're not using it for navigation
     )
+    
+    # Initialize services
+    agent, embeddings, index, gemini_api_key, error = initialize_services()
+    
+    if error:
+        st.error(f"Error initializing services: {error}")
+        st.error("Please check that your API keys (GEMINI_API_KEY, PINECONE_API_KEY, PINECONE_ENVIRONMENT) are set correctly in your environment or Streamlit secrets.")
+        st.stop()
 
     if "selected_question" not in st.session_state:
         st.session_state.selected_question = ""
@@ -387,7 +383,7 @@ def main():
             if message:
                 st.session_state.selected_question = ""
                 with st.spinner("Generating response..."):
-                    result = generate_response(message)
+                    result = generate_response(agent, message)
                 st.markdown("#### Response:")
                 st.write(result)
             st.markdown('</div>', unsafe_allow_html=True)
