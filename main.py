@@ -11,36 +11,65 @@ from langchain.agents import initialize_agent, AgentType, Tool
 # Load environment variables
 load_dotenv()
 
+# Get API keys with fallback to Streamlit secrets
+def get_api_key(key_name):
+    """Get API key from environment or Streamlit secrets"""
+    value = os.getenv(key_name)
+    if not value and hasattr(st, 'secrets'):
+        try:
+            value = st.secrets.get(key_name)
+        except:
+            pass
+    return value
+
 # Initialize Pinecone
-pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+pinecone_api_key = get_api_key("PINECONE_API_KEY")
+gemini_api_key = get_api_key("GEMINI_API_KEY")
+pinecone_env = get_api_key("PINECONE_ENVIRONMENT")
+
+if not pinecone_api_key:
+    st.error("PINECONE_API_KEY not found. Please set it in your environment variables or Streamlit secrets.")
+    st.stop()
+if not gemini_api_key:
+    st.error("GEMINI_API_KEY not found. Please set it in your environment variables or Streamlit secrets.")
+    st.stop()
+
+pc = Pinecone(api_key=pinecone_api_key)
 index_name = "me-gemini"
-spec = ServerlessSpec(cloud="aws", region=os.getenv("PINECONE_ENVIRONMENT"))
+spec = ServerlessSpec(cloud="aws", region=pinecone_env)
 
 # Check if index exists, create if necessary
-if index_name not in pc.list_indexes().names():
-    pc.create_index(name=index_name, dimension=768, spec=spec)
+try:
+    if index_name not in pc.list_indexes().names():
+        pc.create_index(name=index_name, dimension=768, spec=spec)
 
-index = pc.Index(index_name)
+    index = pc.Index(index_name)
 
-# Load documents
-loader = CSVLoader(file_path="ME.csv")
-documents = loader.load()
-embeddings = GoogleGenerativeAIEmbeddings(
-    model="text-embedding-004",
-    google_api_key=os.getenv("GEMINI_API_KEY")
-)
+    # Load documents
+    loader = CSVLoader(file_path="ME.csv")
+    documents = loader.load()
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/text-embedding-004",
+        google_api_key=gemini_api_key
+    )
+except Exception as e:
+    st.error(f"Error initializing services: {str(e)}")
+    st.stop()
 
 
 def load_to_pinecone():
-    existing_ids = {match.id for match in index.query(vector=[0] * 768, top_k=1).matches}
-    if existing_ids:
-        print("Data already exists in Pinecone. Skipping upload.")
-        return
+    try:
+        existing_ids = {match.id for match in index.query(vector=[0] * 768, top_k=1).matches}
+        if existing_ids:
+            print("Data already exists in Pinecone. Skipping upload.")
+            return
 
-    docs_content = [doc.page_content for doc in documents]
-    embeddings_list = embeddings.embed_documents(docs_content)
-    for i, embedding in enumerate(embeddings_list):
-        index.upsert([(str(i), embedding, {"content": docs_content[i]})])
+        docs_content = [doc.page_content for doc in documents]
+        embeddings_list = embeddings.embed_documents(docs_content)
+        for i, embedding in enumerate(embeddings_list):
+            index.upsert([(str(i), embedding, {"content": docs_content[i]})])
+    except Exception as e:
+        st.warning(f"Error loading data to Pinecone: {str(e)}")
 
 load_to_pinecone()
 
@@ -77,8 +106,10 @@ Instructions:
 Now, here is the question to answer:
 {question}
 """
-    response = agent.run(combined_input)
-    return response
+        response = agent.run(combined_input)
+        return response
+    except Exception as e:
+        return f"I apologize, but I encountered an error while generating a response: {str(e)}. Please check your API keys and try again."
 
 # Function to convert image to base64
 def img_to_base64(image_path):
