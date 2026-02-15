@@ -84,16 +84,21 @@ def pinecone_retrieval_tool(input_text: str) -> str:
     return "\n".join(relevant_data)
 
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
-    temperature=0,
-    google_api_key=os.getenv("GEMINI_API_KEY")
-)
-tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
-agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+try:
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.5-flash",
+        temperature=0,
+        google_api_key=gemini_api_key
+    )
+    tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
+    agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+except Exception as e:
+    st.error(f"Error initializing AI model: {str(e)}")
+    st.stop()
 
 def generate_response(question):
-    combined_input = f"""
+    try:
+        combined_input = f"""
 Please respond to the question by reflecting Khushi Patels professional background and experience. Maintain a polite and professional tone in the response.
 
 Instructions:
