@@ -32,30 +32,32 @@ def initialize_services():
         gemini_api_key = get_api_key("GEMINI_API_KEY")
         pinecone_env = get_api_key("PINECONE_ENVIRONMENT")
         
-        if not pinecone_api_key or not gemini_api_key:
+        if not pinecone_api_key or not gemini_api_key or not pinecone_env:
             return None, None, None, None, "Missing API keys"
-        
-        # Initialize Pinecone
-        pc = Pinecone(api_key=pinecone_api_key)
-        index_name = "me-gemini"
-        spec = ServerlessSpec(cloud="aws", region=pinecone_env)
-        
-        # Check if index exists, create if necessary
-        if index_name not in pc.list_indexes().names():
-            pc.create_index(name=index_name, dimension=768, spec=spec)
-        
-        index = pc.Index(index_name)
         
         # Load documents
         loader = CSVLoader(file_path="ME.csv")
         documents = loader.load()
         embeddings = GoogleGenerativeAIEmbeddings(
-            model="models/embedding-001",
+            model="models/gemini-embedding-001",
             google_api_key=gemini_api_key
         )
+
+        # Determine embedding dimension from the selected model.
+        embedding_dimension = len(embeddings.embed_query("dimension check"))
+
+        # Initialize Pinecone with an index that matches embedding dimension.
+        pc = Pinecone(api_key=pinecone_api_key)
+        index_name = f"me-gemini-{embedding_dimension}"
+        spec = ServerlessSpec(cloud="aws", region=pinecone_env)
+
+        if index_name not in pc.list_indexes().names():
+            pc.create_index(name=index_name, dimension=embedding_dimension, spec=spec)
+
+        index = pc.Index(index_name)
         
         # Load data to Pinecone
-        existing_ids = {match.id for match in index.query(vector=[0] * 768, top_k=1).matches}
+        existing_ids = {match.id for match in index.query(vector=[0] * embedding_dimension, top_k=1).matches}
         if not existing_ids:
             docs_content = [doc.page_content for doc in documents]
             embeddings_list = embeddings.embed_documents(docs_content)
@@ -73,10 +75,17 @@ def initialize_services():
             query_embedding = embeddings.embed_query(query)
             result = index.query(vector=query_embedding, top_k=4, include_metadata=True)
             page_contents_array = [match['metadata']['content'] for match in result['matches']]
-            return page_contents_array
+            # Tools should return plain text for ReAct parsing.
+            return "\n".join(page_contents_array)
         
         tools = [Tool(name="Pinecone Retrieval", func=retrieve_info, description="Fetch relevant information using Pinecone.")]
-        agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+        agent = initialize_agent(
+            tools=tools,
+            llm=llm,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            verbose=True,
+            handle_parsing_errors=True,
+        )
         
         return agent, embeddings, index, gemini_api_key, None
         
