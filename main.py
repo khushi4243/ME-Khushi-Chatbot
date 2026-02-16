@@ -124,6 +124,29 @@ def img_to_base64(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
+
+def render_resume_button(file_candidates, download_filename, button_label):
+    """Render a resume download button using the first existing file candidate."""
+    selected_file = None
+    for file_path in file_candidates:
+        if os.path.exists(file_path):
+            selected_file = file_path
+            break
+
+    if not selected_file:
+        return
+
+    with open(selected_file, "rb") as file:
+        resume_data = base64.b64encode(file.read()).decode()
+        st.markdown(
+            f'''
+                <a href="data:application/octet-stream;base64,{resume_data}" download="{download_filename}">
+                    <button class="download-button">{button_label}</button>
+                </a>
+            ''',
+            unsafe_allow_html=True,
+        )
+
 # Convert memoji.png to base64
 image_base64 = img_to_base64("memoji.png")
 
@@ -354,14 +377,17 @@ def main():
                 unsafe_allow_html=True
             )
 
-            # Download Resume Button with Custom Styling
-            with open("resume.pdf", "rb") as file:
-                resume_data = base64.b64encode(file.read()).decode()
-                st.markdown(f'''
-                    <a href="data:application/octet-stream;base64,{resume_data}" download="Khushi_Patel_Resume.pdf">
-                        <button class="download-button">📄 Download Resume</button>
-                    </a>
-                ''', unsafe_allow_html=True)
+            # Download Resume Buttons (SWE + PM)
+            render_resume_button(
+                file_candidates=["resume_swe.pdf", "resume.pdf"],
+                download_filename="Khushi_Patel_SWE_Resume.pdf",
+                button_label="📄 Download SWE Resume",
+            )
+            render_resume_button(
+                file_candidates=["resume_pm.pdf", "resume.pdf"],
+                download_filename="Khushi_Patel_PM_Resume.pdf",
+                button_label="📄 Download PM Resume",
+            )
 
         # --------------------- #
         # add a divider
