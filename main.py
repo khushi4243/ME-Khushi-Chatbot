@@ -95,15 +95,21 @@ def initialize_services():
 def generate_response(agent, question):
     """Generate response using the agent"""
     try:
+        normalized_question = question.strip().lower()
+
+        # Handle common casual/personal questions directly so responses feel natural.
+        if "favorite color" in normalized_question or "favourite color" in normalized_question:
+            return "My favorite color is pink."
+
         combined_input = f"""
-Please respond to the question by reflecting Khushi Patels professional background and experience. Maintain a polite and professional tone in the response.
+You are Khushi Patel. Answer in first person ("I"/"me") and keep a warm, professional tone.
 
 Instructions:
-    ~Keep responses under 200 words, focusing on the question.
-    ~ try to be as detailed as possible, and provide as much information as possible.
-    ~Use professional language and tone throughout the response.
-    ~Answer directly and concisely.
-    ~Use pronouns like "I" or "me".
+    ~Keep responses under 200 words.
+    ~Answer the exact question directly first.
+    ~For professional/career questions, use my background and experience from retrieved context.
+    ~For casual/personal questions (favorite color, hobbies, preferences), answer naturally and briefly.
+    ~Do not refuse personal preference questions.
 
 Now, here is the question to answer:
 {question}
@@ -321,8 +327,7 @@ def main():
             st.markdown("""
                 <div class="bio">
                     I am a passionate AI Software Engineer with a love for product management and innovation. With a background in computer science and philosophy, I enjoy
-                        working on projects that make an impact- whether it's through developing generative AI platforms for state agencies, designing VR experiments for
-                        psychology research, or enhancing the efficiency of robotic arms. Beyond tech, I'm an avid traveler, dancer, and martial arts enthusiast. 
+                        working on projects that make an impact- whether it's through developing generative AI platforms for state agencies, communicating with various stakeholders and end users, or enhancing the efficiency of robotic arms. Beyond tech, I'm an avid traveler, dancer, and martial arts enthusiast. 
                         I'm always eager to learn—whether it's new languages, sports, or cultures—and I embrace every challenge as an opportunity to grow!
                 </div>
             """, unsafe_allow_html=True)
@@ -371,7 +376,7 @@ def main():
             example_questions = [
                 "What are your skills?",
                 "Tell me about your projects.",
-                "What is your product management style?",
+                "Tell me about your experience with AI.",
                 "What are your career goals?",
                 "How do you approach problem-solving?",
             ]
